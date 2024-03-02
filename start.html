@@ -1,0 +1,90 @@
+<html>
+<head>
+<title>导航栏</title>
+</head>
+<body>
+  <div>
+	<center>
+	<p><span id="showuser1"></span>&nbsp<span id="ip1"></span>&nbsp<span id="province1"></span>&nbsp<span id="city1"></span>&nbsp<span id="isp1"></span>&nbsp<span id="end"></span></p>
+	                        <script>
+		                        // 使用免费的ipify API获取访客的IP地址
+		                        fetch('https://api.ipify.org/?format=json')
+			                        .then(response => response.json())
+			                        .then(data => {
+			                                let ip_add = data.ip;
+			                                let url_get="https://www.fkcoder.com/ip?ip=";
+			                                let url_add=url_get+ip_add;
+						        document.getElementById('showuser1').textContent = "欢迎来自：";
+				                        document.getElementById('ip1').textContent = data.ip;
+			                                // 使用免费的API获取访客的归属地
+			                                fetch(url_add)
+			                                .then(response => response.json())
+			                                .then(data => {
+                                                        if(data.province!='0'){
+			                                document.getElementById('province1').textContent = data.province;
+                                      }
+                                                        if(data.city!='0'){
+			                                document.getElementById('city1').textContent = data.city;
+                                      }
+                                                        if(data.isp!='0'){
+			                                document.getElementById('isp1').textContent = data.isp;
+                                      }
+	                                                document.getElementById('end').textContent = "的用户";
+			                                })
+			                        .catch(error => console.error(error));
+			                        })
+			                        .catch(error => console.error(error));
+					         setTimeout(function() {
+                                                 document.getElementById('showuser1').textContent = "";
+			                         document.getElementById('ip1').textContent ="";
+                                                 document.getElementById('province1').textContent = "";
+			                         document.getElementById('city1').textContent ="";
+                                                 document.getElementById('isp1').textContent = "";
+			                         document.getElementById('end').textContent ="";
+                       }, 8000);
+	                        </script>
+	</center>
+	</div>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>     
+<br><br><br><br>
+<center>
+<button onclick="window.location.href = 'https://loveqyx.github.io/'">网站首页</button>
+</center>
+<br>
+<center>
+<button onclick="window.location.href = 'https://loveqyx.github.io/time'">网络时钟</button>
+</center>
+<br>
+<center>
+<button onclick="window.location.href = 'https://loveqyx.github.io/tongji'">网站统计</button>
+</center>
+<br>
+<center>
+<button onclick="window.location.href = 'https://qyx.one/myip'">ip信息(国外)</button>
+</center>
+<br>
+<center>
+<button onclick="window.location.href = 'https://qyx.one/ipinfo'">ip信息(国内)</button>
+</center>
+<br>
+<center>
+<button onclick="window.location.href = 'https://qyx.one/ip'">极简ip</button>
+</center>
+<br>
+<center>
+<button onclick="window.location.href = 'https://qyx.one/404'">404页面</button>
+</center>
+<br>
+<center>
+<button onclick="window.location.href = 'https://qyx.one/user'">显示浏览器数据</button>
+</center>
+<br>
+<center>
+<button onclick="window.location.href = 'https://qyx.one/upload'">上传文件</button>
+</center>
+<br>
+<center>
+<button onclick="window.location.href = 'https://qyx.one/webdav'">Webdav</button>
+</center>
+</body>
+</html>

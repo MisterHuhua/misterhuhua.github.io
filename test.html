@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>获取访客IP地址</title>
+	<meta charset="UTF-8">
+</head>
+<body>	
+	<div>
+	<center>
+	<p><span id="showuser1"></span>&nbsp<span id="ip1"></span>&nbsp<span id="province1"></span>&nbsp<span id="city1"></span>&nbsp<span id="isp1"></span>&nbsp<span id="end"></span></p>
+	                        <script>
+		                        // 使用免费的ipify API获取访客的IP地址
+		                        fetch('https://api.ipify.org/?format=json')
+			                        .then(response => response.json())
+			                        .then(data => {
+			                                let ip_add = data.ip;
+			                                let url_get="https://www.fkcoder.com/ip?ip=";
+			                                let url_add=url_get+ip_add;
+						        document.getElementById('showuser1').textContent = "欢迎来自：";
+				                        document.getElementById('ip1').textContent = data.ip;
+			                                // 使用免费的API获取访客的归属地
+			                                fetch(url_add)
+			                                .then(response => response.json())
+			                                .then(data => {
+                                                        if(data.province!='0'){
+			                                document.getElementById('province1').textContent = data.province;
+                                      }
+                                                        if(data.city!='0'){
+			                                document.getElementById('city1').textContent = data.city;
+                                      }
+                                                        if(data.isp!='0'){
+			                                document.getElementById('isp1').textContent = data.isp;
+                                      }
+	                                                document.getElementById('end').textContent = "的用户";
+			                                })
+			                        .catch(error => console.error(error));
+			                        })
+			                        .catch(error => console.error(error));
+					         setTimeout(function() {
+                                                 document.getElementById('showuser1').textContent = "";
+			                         document.getElementById('ip1').textContent ="";
+                                                 document.getElementById('province1').textContent = "";
+			                         document.getElementById('city1').textContent ="";
+                                                 document.getElementById('isp1').textContent = "";
+			                         document.getElementById('end').textContent ="";
+                       }, 5000);
+	                        </script>
+	</center>
+	</div>
+	<p><span id="wait"></span>
+	<br><span id="showuserip"></span>&nbsp<span id="ip"></span>
+        <br>
+	<span id="showusercountry"></span>&nbsp<span id="country"></span>
+	<br>
+	<span id="showuserprovince"></span>&nbsp<span id="province"></span>
+	<br>
+	<span id="showusercity"></span>&nbsp<span id="city"></span>
+	<br>
+	<span id="showuserisp"></span>&nbsp<span id="isp"></span>
+	<br>
+	<span id="showusertime"></span>&nbsp<span id="time"></span>
+	<br>
+	<span id="showuserorganization"></span>&nbsp<span id="organization"></span>
+	<br>
+	<span id="showagent"></span>&nbsp<span id="userAgentDiv"></span></p>
+	<script>
+		document.getElementById('wait').textContent = "正在加载您的ip地址信息，请稍后...";
+		fetch('https://api.ip.sb/geoip')
+			.then(response => response.json())
+			.then(data => {
+			        document.getElementById('wait').textContent = "获取成功！";
+			        document.getElementById("showagent").textContent = "UA:";
+			        document.getElementById("userAgentDiv").innerHTML = navigator.userAgent;
+                                document.getElementById('showuserip').textContent = "ip地址:";
+				document.getElementById('ip').textContent = data.ip
+			        if(data.country!='0'){
+				document.getElementById('showusercountry').textContent = "国  家:";
+			        document.getElementById('country').textContent = data.country;
+				}
+			
+                                if(data.province!='0'){
+				document.getElementById('showuserprovince').textContent = "省  份:";
+			        document.getElementById('province').textContent = data.region;
+				}
+                                if(data.city!='0'){
+				document.getElementById('showusercity').textContent = "城  市:";
+			        document.getElementById('city').textContent = data.city;
+				}
+                                if(data.isp!='0'){
+				document.getElementById('showuserisp').textContent = "运营商:";
+			        document.getElementById('isp').textContent = data.isp;
+				}
+                                if(data.timezone!='0'){
+				document.getElementById('showusertime').textContent = "时  区:";
+			        document.getElementById('time').textContent = data.timezone;
+				}
+                                if(data.timezone!='0'){
+				document.getElementById('showuserorganization').textContent = "组  织:";
+			        document.getElementById('organization').textContent = data.organization;
+				}
+				})
+			.catch(error => console.error(error));
+	</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>跨域上传文件到 WebDAV 服务器</title>
+</head>
+<body>
+
+  <input type="file" id="uploadFileInput">
+
+  <button onclick="uploadFile()">上传文件</button>
+
+  <script>
+    function uploadFile() {
+      var fileInput = document.getElementById('uploadFileInput');
+      var file = fileInput.files[0];
+      
+      var xhr = new XMLHttpRequest();
+      var url = 'https://drive.loili.com/dav';
+
+      xhr.open('PUT', url, true);
+      
+      // 设置跨域访问和携带凭证
+      xhr.withCredentials = true;
+      
+      // 设置请求头部信息
+      xhr.setRequestHeader('Content-Type', file.type);
+
+      // 设置 Basic Auth 认证信息
+      var username = 'huhy12@163.com';
+      var password = 'BBvrrpMbjTijtEiib7lfiZXSm2Gy5OkG';
+      var auth = 'Basic ' + btoa(username + ':' + password);
+      xhr.setRequestHeader('Authorization', auth);
+
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            console.log('文件上传成功');
+          } else {
+            console.error('文件上传失败：' + xhr.statusText);
+          }
+        }
+      };
+
+      xhr.send(file);
+    }
+  </script>
+
+</body>
+</html>

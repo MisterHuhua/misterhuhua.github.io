@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>正在跳转...</title>
+    <script>
+        function countDown() {
+            //获取初始时间
+            var time = document.getElementById("Time");
+
+            //获取到id为time标签中的数字时间
+            if (time.innerHTML == 0) {
+                //等于0时清除计时，并跳转该指定页面
+                window.location.href="https://qyx.one/dh";
+            } else {
+                time.innerHTML = time.innerHTML - 1;
+            }
+        }
+
+        //1000毫秒调用一次
+        window.setInterval("countDown()", 1000);
+    </script>
+    <style>
+        #main {
+            position: absolute;
+            width: 420px;
+            height: 200px;
+            left: 50%;
+            top: 50%;
+            margin-left: -210px;
+            margin-top: -100px;
+        }
+
+        #Time {
+            font-size: 25px;
+            text-align: center;
+            color: red;
+        }
+
+        .boxs {
+            font-size: 25px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        #Font {
+            font-size: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div>
+	<center>
+	<p><span id="showuser1"></span>&nbsp<span id="ip1"></span>&nbsp<span id="province1"></span>&nbsp<span id="city1"></span>&nbsp<span id="isp1"></span>&nbsp<span id="end"></span></p>
+	                        <script>
+		                        // 使用免费的ipify API获取访客的IP地址
+		                        fetch('https://api.ipify.org/?format=json')
+			                        .then(response => response.json())
+			                        .then(data => {
+			                                let ip_add = data.ip;
+			                                let url_get="https://www.fkcoder.com/ip?ip=";
+			                                let url_add=url_get+ip_add;
+						        document.getElementById('showuser1').textContent = "欢迎来自：";
+				                        document.getElementById('ip1').textContent = data.ip;
+			                                // 使用免费的API获取访客的归属地
+			                                fetch(url_add)
+			                                .then(response => response.json())
+			                                .then(data => {
+                                                        if(data.province!='0'){
+			                                document.getElementById('province1').textContent = data.province;
+                                      }
+                                                        if(data.city!='0'){
+			                                document.getElementById('city1').textContent = data.city;
+                                      }
+                                                        if(data.isp!='0'){
+			                                document.getElementById('isp1').textContent = data.isp;
+                                      }
+	                                                document.getElementById('end').textContent = "的用户";
+			                                })
+			                        .catch(error => console.error(error));
+			                        })
+			                        .catch(error => console.error(error));
+					         setTimeout(function() {
+                                                 document.getElementById('showuser1').textContent = "";
+			                         document.getElementById('ip1').textContent ="";
+                                                 document.getElementById('province1').textContent = "";
+			                         document.getElementById('city1').textContent ="";
+                                                 document.getElementById('isp1').textContent = "";
+			                         document.getElementById('end').textContent ="";
+                       }, 8000);
+	                        </script>
+	</center>
+	</div>
+<div id="main">
+    <div>
+        <span class="boxs">	获取地址成功,正在加载！</span>
+    </div>
+    <div>
+        <span class="boxs">
+            本页面将在<span id="Time">2</span>秒之后跳转到导航页面！
+        </span>
+    </div>
+    <div>
+        <span style="" id="Font">
+            如未成功跳转，请<a href="javascript: window.location.href='https://qyx.one/dh'">点击这里</a>
+        </span>
+    </div>
+</div>
+</body>
+</html>
+
